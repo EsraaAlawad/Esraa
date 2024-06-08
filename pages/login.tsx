@@ -6,7 +6,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // اضف الكود هنا للتعامل مع بيانات تسجيل الدخول
+    
   };
 
   return (
