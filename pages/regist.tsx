@@ -107,7 +107,7 @@ const Registrieren = () => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh', // تعبئة ارتفاع الشاشة بالكامل
+    minHeight: '100vh',   
   };
   
   const titleStyle = {
