@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    // Handle registration data here
     console.log('Received data:', req.body);
     res.status(200).json({ message: 'Registration successful' });
   } else {
