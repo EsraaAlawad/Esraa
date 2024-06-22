@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 const useInputState = (initialValue) => {
   const [value, setValue] = useState(initialValue);
@@ -117,22 +117,22 @@ function Registrieren() {
     alignItems: 'center',
     minHeight: '100vh',   
   };
-  
+
   const titleStyle = {
     color: 'blue',
   };
-  
+
   const inputStyle = {
     marginLeft: '10px',
     padding: '5px',
     borderRadius: '5px',
     border: '1px solid blue',
   };
-  
+
   const errorStyle = {
     color: 'red',
   };
-  
+
   const buttonStyle = {
     backgroundColor: 'blue',
     color: 'white',
@@ -141,51 +141,52 @@ function Registrieren() {
     borderRadius: '5px',
     cursor: 'pointer',
   };
-  
+
   const linkStyle = {
     color: 'blue',
   };
 
   return (
     <div style={containerStyle}>
-      <h1 style={titleStyle}>Registrieren</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="name" style={titleStyle}>Name:</label>
-          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required style={inputStyle} />
-          {nameError && <p style={errorStyle}>{nameError}</p>}
+      {registrationCompleted ? (
+        <div>
+          <p style={titleStyle}>Registration completed</p>
+          <Link to="/" style={linkStyle}>Go to Home</Link>
         </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="email" style={titleStyle}>E-Mail:</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required style={inputStyle} />
-          {emailError && <p style={errorStyle}>{emailError}</p>}
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="password" style={titleStyle}>Passwort:</label>
-          <input type="password" id="password" value={passwort} onChange={(e) => setPasswort(e.target.value)} required style={inputStyle} />
-          {passwortError && <p style={errorStyle}>{passwortError}</p>}
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="passwordBestätigung" style={titleStyle}>Passwort bestätigen:</label>
-          <input type="password" id="passwordBestätigung" value={passwortBestätigung} onChange={(e) => setPasswortBestätigung(e.target.value)} required style={inputStyle} />
-          {passwortBestätigungError && <p style={errorStyle}>{passwortBestätigungError}</p>}
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label htmlFor="termsAkzeptiert" style={titleStyle}>
-            <input type="checkbox" id="termsAkzeptiert" checked={termsAkzeptiert} onChange={(e) => setTermsAkzeptiert(e.target.checked)} required />
-            Ich habe die Nutzungsbedingungen und die Datenschutzrichtlinie gelesen und akzeptiere sie.
-          </label>
-          {termsAkzeptiertError && <p style={errorStyle}>{termsAkzeptiertError}</p>}
-        </div>
-        <button type="submit" style={buttonStyle}>Registrieren</button>
-      </form>
-      {registrationCompleted && (
-        <p style={titleStyle}>
-          Sie haben bereits ein Konto?{' '}
-          <Link href="/login">
-            <a style={linkStyle}>Anmelden</a>
-          </Link>
-        </p>
+      ) : (
+        <>
+          <h1 style={titleStyle}>Registrieren</h1>
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="name" style={titleStyle}>Name:</label>
+              <input type="text" id="name" value={name} onChange={setName} required style={inputStyle} />
+              {nameError && <p style={errorStyle}>{nameError}</p>}
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="email" style={titleStyle}>E-Mail:</label>
+              <input type="email" id="email" value={email} onChange={setEmail} required style={inputStyle} />
+              {emailError && <p style={errorStyle}>{emailError}</p>}
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="password" style={titleStyle}>Passwort:</label>
+              <input type="password" id="password" value={passwort} onChange={setPasswort} required style={inputStyle} />
+              {passwortError && <p style={errorStyle}>{passwortError}</p>}
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="passwordBestätigung" style={titleStyle}>Passwort bestätigen:</label>
+              <input type="password" id="passwordBestätigung" value={passwortBestätigung} onChange={setPasswortBestätigung} required style={inputStyle} />
+              {passwortBestätigungError && <p style={errorStyle}>{passwortBestätigungError}</p>}
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label htmlFor="termsAkzeptiert" style={titleStyle}>
+                <input type="checkbox" id="termsAkzeptiert" checked={termsAkzeptiert} onChange={(e) => setTermsAkzeptiert(e.target.checked)} required />
+                Ich habe die Nutzungsbedingungen und die Datenschutzrichtlinie gelesen und akzeptiere sie.
+              </label>
+              {termsAkzeptiertError && <p style={errorStyle}>{termsAkzeptiertError}</p>}
+            </div>
+            <button type="submit" style={buttonStyle}>Registrieren</button>
+          </form>
+        </>
       )}
     </div>
   );
