@@ -1,0 +1,30 @@
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Login from "./Login";
+import { BrowserRouter as Router } from "react-router-dom";
+
+function renderLogin() {
+  return render(
+    <Router>
+      <Login />
+    </Router>
+  );
+}
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve({}),
+  })
+);
+
+beforeEach(() => {
+  fetch.mockClear();
+  fetch.mockResolvedValue({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve({}),
+  });
+});

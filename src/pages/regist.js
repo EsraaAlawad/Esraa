@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-const Registrieren = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [passwort, setPasswort] = useState('');
-  const [passwortBestätigung, setPasswortBestätigung] = useState('');
+const useInputState = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+  const handleChange = (e) => setValue(e.target.value);
+  return [value, handleChange];
+};
+
+const EMail_validieren = (email) => {
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return re.test(String(email).toLowerCase());
+};
+
+function Registrieren() {
+  const [name, setName] = useInputState('');
+  const [email, setEmail] = useInputState('');
+  const [passwort, setPasswort] = useInputState('');
+  const [passwortBestätigung, setPasswortBestätigung] = useInputState('');
   const [termsAkzeptiert, setTermsAkzeptiert] = useState(false);
+
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwortError, setPasswortError] = useState('');
   const [passwortBestätigungError, setPasswortBestätigungError] = useState('');
   const [termsAkzeptiertError, setTermsAkzeptiertError] = useState('');
   const [registrationCompleted, setRegistrationCompleted] = useState(false);
-
-  const EMail_validieren = (email) => {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).toLowerCase());
-  };
 
   const validateForm = () => {
     let isValid = true;
@@ -94,6 +101,7 @@ const Registrieren = () => {
       alert('Bitte alle Felder korrekt ausfüllen.');
     }
   };
+
   const containerStyle = {
     backgroundColor: '#f0f7ff',
     padding: '20px',
@@ -137,11 +145,11 @@ const Registrieren = () => {
   const linkStyle = {
     color: 'blue',
   };
-  
+
   return (
     <div style={containerStyle}>
-    <h1 style={titleStyle}>Registrieren</h1>
-    <form onSubmit={handleSubmit}>
+      <h1 style={titleStyle}>Registrieren</h1>
+      <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '20px' }}>
           <label htmlFor="name" style={titleStyle}>Name:</label>
           <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required style={inputStyle} />
@@ -181,7 +189,6 @@ const Registrieren = () => {
       )}
     </div>
   );
-  
-};
+}
 
 export default Registrieren;
